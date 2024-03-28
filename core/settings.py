@@ -88,12 +88,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": config('PROD_NAME'),
-        "USER": config('PROD_USER'),
-        "PASSWORD": config('PROD_PASSWORD'),
-        "HOST": config('PROD_HOST'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PROD_NAME_PG'),
+        'USER': config('PROD_USER_PG'),
+        'PASSWORD': config('PROD_PASSWORD_PG'),
+        'HOST': config('PROD_HOST_PG'),
+        'PORT': config('PROD_PORT_PG'),
     }
 }
 
