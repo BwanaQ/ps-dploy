@@ -1,0 +1,121 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Transactions{% endblock title %}
+{% block navbarbrand %}Transactions{% endblock %}
+
+{% block content %}
+<div class="row">
+
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Transactions</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead class=" text-primary">
+              <tr>
+                <th style="color: #F49F1B;">
+                  Date
+                </th>
+                <th style="color: #F49F1B;">
+                  Currency
+                </th>
+                <th style="color: #F49F1B;">
+                  Amount
+                </th>
+                <th style="color: #F49F1B;">
+                  Paid By
+                </th>
+                <th style="color: #F49F1B;">
+                  Payment Method
+                </th>
+                <th style="color: #F49F1B;">
+                  Status
+                </th>
+                <th style="color: #F49F1B;">
+                  Confirmation Code
+                </th>
+                <th style="color: #F49F1B;">
+                  Shopping Cart #
+                </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in transactions %}
+              <tr>
+
+                <td>
+                  {{transaction.created_date}}
+                </td>
+
+                <td>
+                  {{transaction.currency}}
+                </td>
+
+                <td>
+                  {{transaction.amount}}
+                </td>
+
+                <td>
+                  {{transaction.payment_account}}
+                </td>
+
+                <td>
+                  {{transaction.payment_method}}
+                </td>
+
+                <td>
+                  {{transaction.payment_status_description}}
+                </td>
+
+                <td>
+                  {{transaction.confirmation_code}}
+                </td>
+
+                <td>
+                  <a href="{% url 'transaction_detail' transaction.merchant_reference %}">{{transaction.merchant_reference}}</a>
+                </td>
+
+              {% endfor %}
+
+
+            </tbody>
+            <thead class=" text-primary">
+              <tr>
+                <th style="color: #F49F1B;">
+                  Date
+                </th>
+                <th style="color: #F49F1B;">
+                  Currency
+                </th>
+                <th style="color: #F49F1B;">
+                  Amount
+                </th>
+                <th style="color: #F49F1B;">
+                  Paid By
+                </th>
+                <th style="color: #F49F1B;">
+                  Payment Method
+                </th>
+                <th style="color: #F49F1B;">
+                  Status
+                </th>
+                <th style="color: #F49F1B;">
+                  Confirmation Code
+                </th>
+                <th style="color: #F49F1B;">
+                  Shopping Cart #
+                </th>
+              </tr>
+            </thead>
+
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock content %}

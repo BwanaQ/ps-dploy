@@ -1,0 +1,107 @@
+{% extends 'cart/_base.html' %}
+{% block title %}Checkout{% endblock title %}
+{% block content %}
+		<!-- Start Checkout -->
+		<section class="shop checkout section">
+			<div class="container">
+				<div class="row"> 
+
+					<div class="col-lg-4 col-12">
+						<div class="order-details">
+							<!-- Order Widget -->
+							<div class="single-widget">
+								<h2>CART  TOTALS</h2>
+								<div class="content">
+									<ul>
+										<li>Sub Total<span>KShs. {{cart.total_price}}</span></li>
+										<li>VAT 16%<span>KShs. {{cart.vat}}</li>
+										<li class="last">Total<span>Kshs. {{cart.final_price}}</span></li>
+									</ul>
+								</div>
+							</div>
+							<!--/ End Order Widget -->
+							<!-- Order Widget -->
+							<!-- <div class="single-widget">
+								<h2>Payments</h2>
+								<div class="content px-4 pt-1">
+									<div class="radio-group">
+										<label class="radio" for="1"><input name="news" id="1" type="radio"> Check Payments</label><br/>
+										<label class="radio" for="2"><input name="news" id="2" type="radio"> Cash On Delivery</label><br/>
+										<label class="radio" for="3"><input name="news" id="3" type="radio"> PayPal</label><br/>
+									</div>
+								</div>
+							</div> -->
+							<!--/ End Order Widget -->
+							<!-- Payment Method Widget -->
+							<!-- <div class="single-widget payement">
+								<div class="content">
+									<img src="images/payment-method.png" alt="#">
+								</div>
+							</div> -->
+							<!--/ End Payment Method Widget -->
+							<!-- Button Widget -->
+
+							<!--/ End Button Widget -->
+						</div>
+					</div>
+					<div class="col-lg-8 col-12">
+						<div class="checkout-form">
+							<h2>Checkout Here</h2>
+							<p>Please note M-Pesa Express Checkout is currently <strong>down</strong> and we support PesaPal Payments Exclusively.</p>
+							<form method="POST">
+								{% csrf_token %}
+								<button class="btn" type="submit" name="pay_btn">Pay now</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--/ End Checkout -->
+		
+		<!-- Start Shop Services Area  -->
+		<section class="shop-services section home">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-rocket"></i>
+							<h4>Free Coupons</h4>
+							<p>Orders over Sh. 1000</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-reload"></i>
+							<h4>Free Return</h4>
+							<p>Within 30 days returns</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-lock"></i>
+							<h4>Sucure Payment</h4>
+							<p>100% secure payment</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+					<div class="col-lg-3 col-md-6 col-12">
+						<!-- Start Single Service -->
+						<div class="single-service">
+							<i class="ti-tag"></i>
+							<h4>Best Peice</h4>
+							<p>Guaranteed price</p>
+						</div>
+						<!-- End Single Service -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Shop Services -->
+{% endblock content %}
+

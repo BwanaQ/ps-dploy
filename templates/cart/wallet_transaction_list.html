@@ -1,0 +1,248 @@
+{% extends 'dashboard/_base.html' %}
+{% block title %}Wallet Transactions{% endblock title %}
+{% block navbarbrand %}Wallet Transactions{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-cart-simple text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Sales (Units)</p>
+                            <p class="card-title">{{ total_quantity }}
+                            <p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-refresh"></i>
+                    Update Now
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-money-coins text-success"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Revenue(KES)</p>
+                            <p class="card-title">{{ total_amount }}
+                            <p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-calendar-o"></i>
+                    Last day
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-credit-card text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Balance(KES)</p>
+                            <p class="card-title">{{ total_available_amount }}
+                            <p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-clock-o"></i>
+                    In the last hour
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user.is_superuser %}
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-delivery-fast text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Charges(KES)</p>
+                            <p class="card-title">{{ total_service_charge }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer ">
+                <hr>
+                <div class="stats">
+                    <i class="fa fa-refresh"></i>
+                    Update now
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif%}
+</div>
+<div class="row">
+
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+          {% if request.user.is_superuser %}
+            <h4 class="card-title">Wallet Transactions</h4>
+          {% else %}
+            <h4 class="card-title">Wallet Transactions - {{user.first_name}} {{user.last_name}}</h4>
+
+          {% endif %}
+
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead class=" text-primary">
+              <tr>
+                <th style="color: #F49F1B;">
+                  Date
+                </th>
+                <th style="color: #F49F1B;">
+                  Customer
+                </th>
+                <th style="color: #F49F1B;">
+                  Transaction
+                </th>
+                <th style="color: #F49F1B;">
+                  Photo
+                </th>
+                <th style="color: #F49F1B;">
+                  Price
+                </th>
+                <th style="color: #F49F1B;">
+                  Quantity
+                </th>
+                <th style="color: #F49F1B;">
+                  Actual Amount
+                </th>
+                <th style="color: #F49F1B;">
+                  Service Charge
+                </th>
+                <th style="color: #F49F1B;">
+                  Available Amount
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in wallet_transactions %}
+              <tr>
+
+                <td>
+                  {{transaction.created_at}}
+                </td>
+
+                <td>
+                  {{transaction.cart.user.first_name}} {{transaction.cart.user.last_name}}
+                </td>
+
+                <td>
+                  {{transaction.transaction.confirmation_code}}
+                </td>
+
+                <td style="text-align: center; vertical-align: middle;">
+                  <img style="width:50px; height: auto;" class="thumbnail" src="{{transaction.cart_item.photo.webp_image}}" alt="{{transaction.cart_item.photo.title}}">
+                </td>
+
+                <td>
+                  {{transaction.cart_item.photo.price}}
+                </td>
+
+                <td>
+                  {{transaction.cart_item.quantity}}
+                </td>
+
+                <td>
+                  {{transaction.amount}}
+                </td>
+
+                <td>
+                  {{transaction.service_charge}}
+                </td>
+
+                <td>
+                  {{transaction.available_amount}}
+                </td>
+
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+            <thead class=" text-primary">
+              <tr>
+                <th style="color: #F49F1B;">
+                  Date
+                </th>
+                <th style="color: #F49F1B;">
+                  Customer
+                </th>
+                <th style="color: #F49F1B;">
+                  Transaction
+                </th>
+                <th style="color: #F49F1B;">
+                  Photo
+                </th>
+                <th style="color: #F49F1B;">
+                  Price
+                </th>
+                <th style="color: #F49F1B;">
+                  Quantity
+                </th>
+                <th style="color: #F49F1B;">
+                  Actual Amount
+                </th>
+                <th style="color: #F49F1B;">
+                  Service Charge
+                </th>
+                <th style="color: #F49F1B;">
+                  Available Amount
+                </th>
+              </tr>
+            </thead>
+
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock content %}
